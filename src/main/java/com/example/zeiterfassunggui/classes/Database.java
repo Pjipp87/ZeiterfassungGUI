@@ -84,4 +84,28 @@ public class Database {
         }
     }
 
+
+    public String getTime(Worker w){
+        String starttime;
+        try {
+            stm = con.createStatement();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Select * From User WHERE ID=");
+
+//            "SELECT `User`.`ID`, `Anfangszeit`.`zeit`, `Endzeit`.`zeit` FROM `User` , `Anfangszeit` , `Endzeit` WHERE User.Nummer = 4711  ORDER BY Endzeit.id_ende, Anfangszeit.id_anfang DESC Limit 1"
+
+
+//            sb.append(persNum);
+//            ResultSet rs = stm.executeQuery(String.valueOf(sb));
+//            while(rs.next()){
+//                user = new Worker(rs.getString(2),rs.getString(3), rs.getInt(4),rs.getInt(1));
+//            }
+        } catch (Exception e){
+            System.out.println("Fehler in getUser()");
+        }
+
+
+        return "Test";
+    }
+
 }
