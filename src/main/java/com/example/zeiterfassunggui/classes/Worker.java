@@ -10,6 +10,7 @@ public class Worker {
     private final String firstName;
     private String lastName;
     private final int id;
+    private int dbid;
     private long workHour;
     private String Anfangszeit;
     private String EndeZeit;
@@ -25,6 +26,16 @@ public class Worker {
         this.lastName = lastName;
         this.id = id;
         this.workHour = 0;
+        workerList.add(this);
+
+    }
+
+    public Worker(String firstName, String lastName, int id, int dbid){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+        this.workHour = 0;
+        this.dbid = dbid;
         workerList.add(this);
 
     }
@@ -81,5 +92,9 @@ public class Worker {
 
     public double getWorkHour() {
         return workHour;
+    }
+
+    public int getDbid() {
+        return dbid;
     }
 }

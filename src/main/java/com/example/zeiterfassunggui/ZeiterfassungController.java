@@ -1,12 +1,18 @@
 package com.example.zeiterfassunggui;
 
+import com.example.zeiterfassunggui.classes.Database;
 import com.example.zeiterfassunggui.classes.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class HelloController {
+import java.sql.SQLException;
+
+public class ZeiterfassungController {
+
+    Database db = new Database();
+
     Worker john = new Worker("John", "Doe", 4711);
     Worker activeWorker = null;
     @FXML
@@ -36,23 +42,34 @@ public class HelloController {
 
 
     @FXML
-    protected void onClickLogin(){
+    protected void onClickLogin() throws SQLException {
+
         try {
             int tempPersNum = Integer.parseInt(persNum.getText());
             welcomeLabel.setText("Personalnummer nicht bekannt!");
-            for (Worker w:Worker.workerList) {
-                if (w.getId() == tempPersNum){
-                    activeWorker = w;
-                    welcomeLabel.setText("Hallo "+w.getFirstName()+" "+w.getLastName());
+            if (db.getUser(tempPersNum) != null){
+                activeWorker = db.getUser(4711);
+                    welcomeLabel.setText("Hallo "+activeWorker.getFirstName()+" "+activeWorker.getLastName());
                     if (Worker.acticeWorker.contains(activeWorker)){
                         endeButton.setDisable(false);
                         anfangsZeit.setText(activeWorker.getAnfangszeit());
                     } else {
                         anfangButton.setDisable(false);
                     }
-                    break;
-                }
-            }
+            };
+//            for (Worker w:Worker.workerList) {
+//                if (w.getId() == tempPersNum){
+//                    activeWorker = w;
+//                    welcomeLabel.setText("Hallo "+w.getFirstName()+" "+w.getLastName());
+//                    if (Worker.acticeWorker.contains(activeWorker)){
+//                        endeButton.setDisable(false);
+//                        anfangsZeit.setText(activeWorker.getAnfangszeit());
+//                    } else {
+//                        anfangButton.setDisable(false);
+//                    }
+//                    break;
+//                }
+//            }
         } catch (Exception e){
             welcomeLabel.setText("Keine Gültige Zahl!");
         }finally {
@@ -62,6 +79,7 @@ public class HelloController {
 
     @FXML
     protected void startDay(){
+        db.startDay(activeWorker);
         anfangsZeit.setText(activeWorker.setBeginDay());
         endeButton.setDisable(false);
         anfangButton.setDisable(true);
