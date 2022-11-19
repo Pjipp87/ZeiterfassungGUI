@@ -39,7 +39,7 @@ public class Database {
         return user;
     }
 
-    public String startDay(Worker w){
+    public void startDay(Worker w){
         String zeit=null;
         try {
 
@@ -56,8 +56,6 @@ public class Database {
             System.err.println(e.getLocalizedMessage());
 
         }
-
-        return zeit;
     }
 
 }
