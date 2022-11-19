@@ -47,7 +47,6 @@ public class Database {
             sb.append("VALUES ('");
             sb.append(w.getDbid());
             sb.append("');");
-            System.out.println(sb);
             con.prepareStatement(String.valueOf(sb)).execute();
 
             StringBuilder sb2 = new StringBuilder();
@@ -70,7 +69,6 @@ public class Database {
             sb.append("VALUES ('");
             sb.append(w.getDbid());
             sb.append("');");
-            System.out.println(sb);
             con.prepareStatement(String.valueOf(sb)).execute();
 
             StringBuilder sb2 = new StringBuilder();
