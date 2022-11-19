@@ -40,7 +40,6 @@ public class Database {
     }
 
     public void startDay(Worker w){
-        String zeit=null;
         try {
 
             StringBuilder sb = new StringBuilder();
@@ -50,6 +49,35 @@ public class Database {
             sb.append("');");
             System.out.println(sb);
             con.prepareStatement(String.valueOf(sb)).execute();
+
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("UPDATE User SET arbeitet = '1' WHERE ID =");
+            sb2.append(w.getDbid());
+            sb2.append(";");
+            con.prepareStatement(String.valueOf(sb2)).execute();
+
+        } catch (Exception e){
+            System.out.println("Fehler in getUser()");
+            System.err.println(e.getLocalizedMessage());
+
+        }
+    }
+
+    public void stopDay(Worker w){
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("INSERT INTO Endzeit (id_user) ");
+            sb.append("VALUES ('");
+            sb.append(w.getDbid());
+            sb.append("');");
+            System.out.println(sb);
+            con.prepareStatement(String.valueOf(sb)).execute();
+
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("UPDATE User SET arbeitet = '0' WHERE ID =");
+            sb2.append(w.getDbid());
+            sb2.append(";");
+            con.prepareStatement(String.valueOf(sb2)).execute();
 
         } catch (Exception e){
             System.out.println("Fehler in getUser()");

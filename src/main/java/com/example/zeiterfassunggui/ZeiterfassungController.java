@@ -87,6 +87,8 @@ public class ZeiterfassungController {
 
     @FXML
     protected void endDay(){
+        db.stopDay(activeWorker);
+        //Database integration
         endZeit.setText(activeWorker.setEndDay());
         gesamtZeit.setText(activeWorker.getHours());
         endeButton.setDisable(false);
