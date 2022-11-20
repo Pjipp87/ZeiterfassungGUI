@@ -7,7 +7,13 @@ public class Database {
     private static Connection con = null;
     private static Statement stm= null;
 
-    public Database() {
+    private static Connection connection;
+
+
+
+    private static final String DB_PATH = System.getProperty("user.home") + "/" + "testdb.db";
+
+    public Database() throws SQLException {
         try {
             con = DriverManager.getConnection(url, user, pass);
             System.out.println("Verbindung erfolgreich hergestellt");
@@ -20,6 +26,56 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Fehler beim Laden des JDBC-Treibers");
+            e.printStackTrace();
+        }
+
+/*        try {
+            if (connection != null)
+                return;
+            System.out.println("Creating Connection to Database...");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+            if (!connection.isClosed())
+                System.out.println("...Connection established");
+            System.out.println(DB_PATH);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Statement stmt2 = connection.createStatement();
+            String sql2 = "CREATE TABLE IF NOT EXISTS warehouses (\n"
+                    + "	id integer PRIMARY KEY,\n"
+                    + "	name text NOT NULL,\n"
+                    + "	capacity real\n"
+                    + ");";
+            //stmt2.execute("DROP TABLE anfangszeit");
+            String sql = "CREATE TABLE IF NOT EXISTS anfangszeit (\n"+
+                    " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
+                    " id_user integer NOT NULL, \n"+
+                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,"+
+                    " capacity real );";
+
+            stmt2.execute(sql);
+
+            String sql3 = "INSERT INTO anfangszeit (id_user) VALUES (2)";
+            stmt2.execute(sql3);
+
+            ResultSet rs2 = stmt2.executeQuery("SELECT * FROM anfangszeit WHERE id_user =2");
+
+            while (rs2.next()){
+                System.out.println(rs2.getString(1)+" - "+rs2.getString(2)+" - "+rs2.getString(3));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Fehler: "+ e.getLocalizedMessage());
+        }*/
+
+
     }
 
     public Worker getUser(int persNum) throws SQLException {

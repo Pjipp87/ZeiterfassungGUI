@@ -32,6 +32,8 @@ public class ZeiterfassungController {
     @FXML
     private Button logoutButton;
 
+    public ZeiterfassungController() throws SQLException {
+    }
 
 
     @FXML
