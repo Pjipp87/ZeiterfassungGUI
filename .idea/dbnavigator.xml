@@ -13,10 +13,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4de3ed63-6e86-4a04-b5a9-08bf815f7085">
-      <console name="Connection" type="STANDARD" schema="Zeiterfassung" session="Main" />
+      <console name="Connection" type="STANDARD" schema="Zeiterfassung" session="Main"><![CDATA[select * FROM User]]></console>
     </connection>
     <connection id="8ecfab30-5e99-4191-92a9-0e5453193b6b">
-      <console name="Connection 1" type="STANDARD" schema="" session="Main" />
+      <console name="Connection 1" type="STANDARD" schema="main" session="Main"><![CDATA[select * From User]]></console>
     </connection>
     <connection id="b939bdbe-040d-45cc-bcf4-359669b9aa42">
       <console name="Connection 2" type="STANDARD" schema="" session="Main" />
@@ -33,9 +33,15 @@
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -695,5 +701,8 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
   </component>
 </project>

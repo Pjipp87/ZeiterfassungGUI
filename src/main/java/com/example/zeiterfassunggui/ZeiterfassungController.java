@@ -1,17 +1,17 @@
 package com.example.zeiterfassunggui;
 
-import com.example.zeiterfassunggui.classes.Database;
+import com.example.zeiterfassunggui.classes.Datenbank;
 import com.example.zeiterfassunggui.classes.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.sql.SQLException;
 
 public class ZeiterfassungController {
 
-    Database db = new Database();
+    Datenbank db = new Datenbank();
+
 
     Worker john = new Worker("John", "Doe", 4711);
     Worker activeWorker = null;
@@ -37,9 +37,10 @@ public class ZeiterfassungController {
 
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
+        Datenbank.SETNEWUSER(4715, "Martina", "Musterfrau", 0);
     }
 
 

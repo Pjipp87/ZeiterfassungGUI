@@ -1,12 +1,15 @@
 package com.example.zeiterfassunggui;
 
+import com.example.zeiterfassunggui.classes.Datenbank;
 import com.example.zeiterfassunggui.classes.Worker;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ZeiterfassungApplication extends Application {
     @Override
@@ -19,8 +22,7 @@ public class ZeiterfassungApplication extends Application {
 
     }
 
-    public static void main(String[] args) {
-        Worker john = new Worker("John", "Doe", 4711);
+    public static void main(String[] args) throws SQLException {
         launch();
     }
 }

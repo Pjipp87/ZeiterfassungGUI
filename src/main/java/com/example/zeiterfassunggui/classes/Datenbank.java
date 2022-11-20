@@ -1,40 +1,19 @@
 package com.example.zeiterfassunggui.classes;
 import java.sql.*;
-public class Database {
+public class Datenbank {
     String url = "jdbc:mysql://localhost:3306/Zeiterfassung";
     String user = "root";
     String pass = "";
-    private static Connection con = null;
-    private static Statement stm= null;
-
+    //private static Connection con = null;
+    private static Statement stmt = null;
     private static Connection connection;
 
 
 
     private static final String DB_PATH = System.getProperty("user.home") + "/" + "testdb.db";
 
-    public Database() throws SQLException {
+    public Datenbank() throws SQLException {
         try {
-            con = DriverManager.getConnection(url, user, pass);
-            System.out.println("Verbindung erfolgreich hergestellt");
-
-
-
-            String abfrage = "SELECT * FROM staedteUSA";
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Fehler beim Laden des JDBC-Treibers");
-            e.printStackTrace();
-        }
-
-/*        try {
             if (connection != null)
                 return;
             System.out.println("Creating Connection to Database...");
@@ -42,45 +21,53 @@ public class Database {
             if (!connection.isClosed())
                 System.out.println("...Connection established");
             System.out.println(DB_PATH);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            stmt = connection.createStatement();
 
-        try {
-            Statement stmt2 = connection.createStatement();
-            String sql2 = "CREATE TABLE IF NOT EXISTS warehouses (\n"
-                    + "	id integer PRIMARY KEY,\n"
-                    + "	name text NOT NULL,\n"
-                    + "	capacity real\n"
-                    + ");";
-            //stmt2.execute("DROP TABLE anfangszeit");
-            String sql = "CREATE TABLE IF NOT EXISTS anfangszeit (\n"+
+            String sql = "CREATE TABLE IF NOT EXISTS User (\n" +
+                    "  ID integer NOT NULL,\n" +
+                    "  Vorname text NOT NULL,\n" +
+                    "  Nachname text NOT NULL,\n" +
+                    "  arbeitet integer DEFAULT NULL\n" +
+                    " );";
+            stmt.execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS anfangszeit (\n"+
                     " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
-                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,"+
-                    " capacity real );";
-
-            stmt2.execute(sql);
-
-            String sql3 = "INSERT INTO anfangszeit (id_user) VALUES (2)";
-            stmt2.execute(sql3);
-
-            ResultSet rs2 = stmt2.executeQuery("SELECT * FROM anfangszeit WHERE id_user =2");
-
-            while (rs2.next()){
-                System.out.println(rs2.getString(1)+" - "+rs2.getString(2)+" - "+rs2.getString(3));
-            }
-
+                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " FOREIGN KEY(id_user) REFERENCES user(ID)\n"+
+                    "  );";
+            stmt.execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS endzeit (\n"+
+                    " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
+                    " id_user integer NOT NULL, \n"+
+                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " FOREIGN KEY(id_user) REFERENCES user(id_user) \n"+
+                    " );";
+            stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println("Fehler: "+ e.getLocalizedMessage());
-        }*/
+            System.out.println("Fehler SQLite: "+ e.getLocalizedMessage());
+        }
+    }
 
-
+    public static void SETNEWUSER(int num, String vorname, String nachname, int arbeitet) throws SQLException {
+        try {
+            stmt = connection.createStatement();
+            StringBuilder sb = new StringBuilder();
+            sb.append("INSERT INTO User (ID, Vorname, Nachname, arbeitet) VALUES (");
+            sb.append(num).append(", '");
+            sb.append(vorname).append("', '");
+            sb.append(nachname).append("', ");
+            sb.append(arbeitet).append(");");
+            System.out.println(sb);
+            stmt.execute(String.valueOf(sb));
+        }catch (SQLException e){
+            System.out.println("Fehler: "+e);
+        }
     }
 
     public Worker getUser(int persNum) throws SQLException {
         Worker user = null;
-        try {
+  /*      try {
             stm = con.createStatement();
             StringBuilder sb = new StringBuilder();
             sb.append("Select * From User WHERE Nummer=");
@@ -91,12 +78,12 @@ public class Database {
             }
         } catch (Exception e){
             System.out.println("Fehler in getUser()");
-        }
+        }*/
         return user;
     }
 
     public void startDay(Worker w){
-        try {
+/*        try {
 
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO Anfangszeit (id_user) ");
@@ -115,11 +102,11 @@ public class Database {
             System.out.println("Fehler in getUser()");
             System.err.println(e.getLocalizedMessage());
 
-        }
+        }*/
     }
 
     public void stopDay(Worker w){
-        try {
+/*        try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO Endzeit (id_user) ");
             sb.append("VALUES ('");
@@ -137,13 +124,13 @@ public class Database {
             System.out.println("Fehler in getUser()");
             System.err.println(e.getLocalizedMessage());
 
-        }
+        }*/
     }
 
 
     public String getTime(Worker w){
         String starttime;
-        try {
+/*        try {
             stm = con.createStatement();
             StringBuilder sb = new StringBuilder();
             sb.append("Select * From User WHERE ID=");
@@ -158,7 +145,7 @@ public class Database {
 //            }
         } catch (Exception e){
             System.out.println("Fehler in getUser()");
-        }
+        }*/
 
 
         return "Test";
