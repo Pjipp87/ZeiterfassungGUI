@@ -32,6 +32,9 @@ public class ZeiterfassungController {
     @FXML
     private Button logoutButton;
 
+    @FXML
+    private Button loginButton;
+
     public ZeiterfassungController() throws SQLException {
     }
 
@@ -40,7 +43,14 @@ public class ZeiterfassungController {
     public void initialize() throws SQLException {
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
-        Datenbank.SETNEWUSER(4715, "Martina", "Musterfrau", 0);
+        logoutButton.setDisable(true);
+
+/*        db.DELETEALLYOUSERFROMTABLER("User");
+        db.SETNEWUSER(4711, "Max", "Mustermann", 0);
+        db.SETNEWUSER(4712, "John", "Doe", 0);
+        db.SETNEWUSER(4713, "Martina", "Musterfrau", 0);
+        System.out.println("Users:");
+        db.SHOWALLUSER();*/
     }
 
 
@@ -51,28 +61,19 @@ public class ZeiterfassungController {
             int tempPersNum = Integer.parseInt(persNum.getText());
             welcomeLabel.setText("Personalnummer nicht bekannt!");
             if (db.getUser(tempPersNum) != null){
-                activeWorker = db.getUser(4711);
+                activeWorker = db.getUser(tempPersNum);
                     welcomeLabel.setText("Hallo "+activeWorker.getFirstName()+" "+activeWorker.getLastName());
                     if (Worker.acticeWorker.contains(activeWorker)){
+                        loginButton.setDisable(true);
+                        logoutButton.setDisable(false);
                         endeButton.setDisable(false);
                         anfangsZeit.setText(activeWorker.getAnfangszeit());
                     } else {
+                        logoutButton.setDisable(false);
+                        loginButton.setDisable(true);
                         anfangButton.setDisable(false);
                     }
             };
-//            for (Worker w:Worker.workerList) {
-//                if (w.getId() == tempPersNum){
-//                    activeWorker = w;
-//                    welcomeLabel.setText("Hallo "+w.getFirstName()+" "+w.getLastName());
-//                    if (Worker.acticeWorker.contains(activeWorker)){
-//                        endeButton.setDisable(false);
-//                        anfangsZeit.setText(activeWorker.getAnfangszeit());
-//                    } else {
-//                        anfangButton.setDisable(false);
-//                    }
-//                    break;
-//                }
-//            }
         } catch (Exception e){
             welcomeLabel.setText("Keine Gültige Zahl!");
         }finally {
@@ -82,19 +83,20 @@ public class ZeiterfassungController {
 
     @FXML
     protected void startDay(){
-        db.startDay(activeWorker);
-        anfangsZeit.setText(activeWorker.setBeginDay());
+
+        anfangsZeit.setText(db.startDay(activeWorker));
         endeButton.setDisable(false);
         anfangButton.setDisable(true);
+        endZeit.setText("");
     }
 
     @FXML
     protected void endDay(){
-        db.stopDay(activeWorker);
+        ;
         //Database integration
-        endZeit.setText(activeWorker.setEndDay());
+        endZeit.setText(db.stopDay(activeWorker));
         gesamtZeit.setText(activeWorker.getHours());
-        endeButton.setDisable(false);
+        endeButton.setDisable(true);
         anfangButton.setDisable(false);
     }
 
@@ -105,6 +107,8 @@ public class ZeiterfassungController {
         anfangsZeit.setText("");
         endZeit.setText("");
         gesamtZeit.setText("");
+        loginButton.setDisable(false);
+        logoutButton.setDisable(true);
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
     }
