@@ -13,11 +13,17 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="8ecfab30-5e99-4191-92a9-0e5453193b6b">
-      <console name="SQLite" type="STANDARD" schema="main" session="Main" />
+      <console name="SQLite" type="STANDARD" schema="main" session="Main"><![CDATA[/*select strftime('%s',(strftime('%s', endzeit.gehen)-strftime('%s',endzeit.gehen))) AS 
+Ende from anfangszeit JOIN endzeit ON anfangszeit.id_user = endzeit.id_user WHERE endzeit.id_user = 4711*/
+
+select strftime('%s', endzeit.gehen) AS Endzeit, strftime('%s', anfangszeit.gehen) AS ANFANG, strftime('%s', cast )  AS DIfferenz FROM endzeit JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user=4711]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="8ecfab30-5e99-4191-92a9-0e5453193b6b" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="8ecfab30-5e99-4191-92a9-0e5453193b6b" dataset="main.books" active-filter-id="" />

@@ -1,0 +1,4 @@
+SELECT anfangszeit.zeit AS Anfang, endzeit.zeit  FROM endzeit JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user = 4712
+
+SELECT strftime('%H:%M:%S',strftime('%s', endzeit.zeit)-strftime('%s', anfangszeit.zeit)) AS Diffferenz FROM endzeit
+JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user = 4712

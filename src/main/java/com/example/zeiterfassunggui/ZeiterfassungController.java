@@ -2,10 +2,14 @@ package com.example.zeiterfassunggui;
 
 import com.example.zeiterfassunggui.classes.Datenbank;
 import com.example.zeiterfassunggui.classes.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 import java.sql.SQLException;
 
 public class ZeiterfassungController {
@@ -35,6 +39,8 @@ public class ZeiterfassungController {
     @FXML
     private Button loginButton;
 
+
+
     public ZeiterfassungController() throws SQLException {
     }
 
@@ -44,13 +50,27 @@ public class ZeiterfassungController {
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
         logoutButton.setDisable(true);
-
-/*        db.DELETEALLYOUSERFROMTABLER("User");
+        persNum.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER){
+                    try {
+                        onClickLogin();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+        /*
+        db.DELETEALLYOUSERFROMTABLER("User");
         db.SETNEWUSER(4711, "Max", "Mustermann", 0);
         db.SETNEWUSER(4712, "John", "Doe", 0);
         db.SETNEWUSER(4713, "Martina", "Musterfrau", 0);
         System.out.println("Users:");
-        db.SHOWALLUSER();*/
+        db.SHOWALLUSER();
+
+         */
     }
 
 

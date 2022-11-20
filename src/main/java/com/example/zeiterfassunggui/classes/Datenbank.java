@@ -25,6 +25,13 @@ public class Datenbank {
             System.out.println(DB_PATH);
             stmt = connection.createStatement();
 
+/*
+            String debugSql = "DROP TABLE anfangszeit";
+            stmt.execute(debugSql);
+            debugSql = "DROP TABLE endzeit";
+            stmt.execute(debugSql);
+*/
+
             String sql = "CREATE TABLE IF NOT EXISTS User (\n" +
                     "  ID integer NOT NULL,\n" +
                     "  Vorname text NOT NULL,\n" +
@@ -35,14 +42,17 @@ public class Datenbank {
             sql = "CREATE TABLE IF NOT EXISTS anfangszeit (\n"+
                     " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
-                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " gehen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " datum DATE DEFAULT CURRENT_TIMESTAMP, \n"+
                     " FOREIGN KEY(id_user) REFERENCES user(ID)\n"+
                     "  );";
             stmt.execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS endzeit (\n"+
                     " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
-                    " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                   // " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " gehen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " datum DATE DEFAULT CURRENT_TIMESTAMP, \n"+
                     " FOREIGN KEY(id_user) REFERENCES user(id_user) \n"+
                     " );";
             stmt.execute(sql);
@@ -51,6 +61,17 @@ public class Datenbank {
         }
     }
 
+
+    public void getTimeDifference(){
+
+        try{
+            stmt = connection.createStatement();
+            String sql = "SELECT (julianday(endzeit.zeit) - julianday(startzeit.zeit)) * 86400.0) FROM endzeit JOIN anfangszeit ON endzeit.id_user = anffangszeit.id_user";
+        }catch (SQLException e){
+            System.err.println("getTimeDifference() - " + e.getLocalizedMessage());
+        }
+
+    }
 
     public void DELETEALLYOUSERFROMTABLER(String table){
         try {
