@@ -50,6 +50,7 @@ public class ZeiterfassungController {
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
         logoutButton.setDisable(true);
+
         persNum.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -62,15 +63,15 @@ public class ZeiterfassungController {
                 }
             }
         });
-        /*
+  /*
         db.DELETEALLYOUSERFROMTABLER("User");
         db.SETNEWUSER(4711, "Max", "Mustermann", 0);
         db.SETNEWUSER(4712, "John", "Doe", 0);
         db.SETNEWUSER(4713, "Martina", "Musterfrau", 0);
         System.out.println("Users:");
         db.SHOWALLUSER();
+*/
 
-         */
     }
 
 
@@ -115,7 +116,7 @@ public class ZeiterfassungController {
         ;
         //Database integration
         endZeit.setText(db.stopDay(activeWorker));
-        gesamtZeit.setText(activeWorker.getHours());
+        gesamtZeit.setText(db.getTimeDifference(activeWorker));
         endeButton.setDisable(true);
         anfangButton.setDisable(false);
     }

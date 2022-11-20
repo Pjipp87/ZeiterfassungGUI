@@ -13,10 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="8ecfab30-5e99-4191-92a9-0e5453193b6b">
-      <console name="SQLite" type="STANDARD" schema="main" session="Main"><![CDATA[/*select strftime('%s',(strftime('%s', endzeit.gehen)-strftime('%s',endzeit.gehen))) AS 
-Ende from anfangszeit JOIN endzeit ON anfangszeit.id_user = endzeit.id_user WHERE endzeit.id_user = 4711*/
-
-select strftime('%s', endzeit.gehen) AS Endzeit, strftime('%s', anfangszeit.gehen) AS ANFANG, strftime('%s', cast )  AS DIfferenz FROM endzeit JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user=4711]]></console>
+      <console name="SQLite" type="STANDARD" schema="main" session="Main"><![CDATA[select endzeit.gehen As endzeit, anfangszeit.gehen as anfangszeit,  (strftime('%s', endzeit.gehen)-strftime('%s',anfangszeit.gehen))*1000  AS DIfferenz FROM endzeit JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user=4711 AND endzeit.id_anfang=(select max(endzeit.id_anfang) from endzeit) AND anfangszeit.id_anfang=(select max(anfangszeit.id_anfang) from anfangszeit)]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

@@ -69,6 +69,7 @@ public class Worker {
         return this.Anfangszeit;
     }
 
+
     public String getHours(){
         Date time = new Date(workHour);
         return time.getHours()-1+":"+time.getMinutes()+":"+time.getSeconds();

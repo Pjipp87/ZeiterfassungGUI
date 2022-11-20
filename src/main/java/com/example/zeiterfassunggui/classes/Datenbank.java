@@ -42,13 +42,13 @@ public class Datenbank {
             sql = "CREATE TABLE IF NOT EXISTS anfangszeit (\n"+
                     " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
-                    " gehen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
+                    " kommen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
                     " datum DATE DEFAULT CURRENT_TIMESTAMP, \n"+
                     " FOREIGN KEY(id_user) REFERENCES user(ID)\n"+
                     "  );";
             stmt.execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS endzeit (\n"+
-                    " id_anfang integer PRIMARY KEY AUTOINCREMENT,\n"+
+                    " id_ende integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
                    // " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
                     " gehen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
@@ -62,14 +62,26 @@ public class Datenbank {
     }
 
 
-    public void getTimeDifference(){
+    public String getTimeDifference(Worker w){
+        long time = 0;
+        try {
 
-        try{
             stmt = connection.createStatement();
-            String sql = "SELECT (julianday(endzeit.zeit) - julianday(startzeit.zeit)) * 86400.0) FROM endzeit JOIN anfangszeit ON endzeit.id_user = anffangszeit.id_user";
+            StringBuilder sb =new StringBuilder();
+            sb.append("select (strftime('%s', endzeit.gehen)-strftime('%s',anfangszeit.kommen))*1000  AS DIfferenz FROM endzeit JOIN anfangszeit ON endzeit.id_user = anfangszeit.id_user WHERE anfangszeit.id_user=");
+            sb.append(w.getDbid());
+            sb.append(" AND endzeit.id_ende=(select max(endzeit.id_ende) from endzeit) AND anfangszeit.id_anfang=(select max(anfangszeit.id_anfang) from anfangszeit)");
+            ResultSet rs = stmt.executeQuery(String.valueOf(sb));
+            while (rs.next()){
+                System.out.println(rs.getLong(1));
+                time = rs.getLong(1);
+            }
         }catch (SQLException e){
-            System.err.println("getTimeDifference() - " + e.getLocalizedMessage());
+            System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
         }
+
+        Time t = new Time(time);
+        return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
 
     }
 
