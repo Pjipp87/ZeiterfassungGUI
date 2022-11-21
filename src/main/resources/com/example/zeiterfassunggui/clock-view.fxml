@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zeiterfassunggui.RegistrierungControler">
+   <children>
+      <Circle fill="WHITE" layoutX="300.0" layoutY="193.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line endX="100.0" layoutX="300.0" layoutY="193.0" rotate="69.0" startX="-100.0" strokeWidth="5.0">
+         <stroke>
+            <LinearGradient endX="0.5545023696682464" endY="1.0" startX="0.5450236966824645" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Circle fill="DODGERBLUE" layoutX="300.0" layoutY="193.0" radius="10.0" rotate="-21.8" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</Pane>

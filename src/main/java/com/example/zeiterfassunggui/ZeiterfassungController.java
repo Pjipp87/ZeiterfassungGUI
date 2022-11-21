@@ -2,7 +2,11 @@ package com.example.zeiterfassunggui;
 
 import com.example.zeiterfassunggui.classes.Datenbank;
 import com.example.zeiterfassunggui.classes.Worker;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +22,15 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ZeiterfassungController {
     Datenbank db = ZeiterfassungApplication.getdb();
@@ -52,16 +61,22 @@ public class ZeiterfassungController {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private Label uhr;
 
 
 
 
-    public ZeiterfassungController() throws SQLException {
+    public void delay() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> {
+            uhr.setText(String.valueOf(LocalTime.now().getHour())+":"+String.valueOf(LocalTime.now().getMinute())+":"+String.valueOf(LocalTime.now().getSecond()));
+        }));
+        timeline.play();
+
     }
 
-
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, InterruptedException {
         anfangButton.setDisable(true);
         endeButton.setDisable(true);
         logoutButton.setDisable(true);
@@ -75,7 +90,23 @@ public class ZeiterfassungController {
                     throw new RuntimeException(e);
                 }
             }
+
+
         });
+
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, kf ->
+                uhr.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+        ),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+
+
+
+
  /*
         db.DELETEALLYOUSERFROMTABLER("User");
         db.SETNEWUSER(4711, "Max", "Mustermann", 0);

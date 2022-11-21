@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zeiterfassunggui.ZeiterfassungController">
    <children>
@@ -32,5 +33,10 @@
           <Region />
         </root>
       </SubScene>
+      <Label fx:id="uhr" alignment="TOP_RIGHT" layoutX="376.0" layoutY="176.0" prefHeight="46.0" prefWidth="196.0" text="Label">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
