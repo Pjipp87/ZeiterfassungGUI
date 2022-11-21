@@ -74,7 +74,7 @@ public class ZeiterfassungController {
         System.out.println("Users:");
         db.SHOWALLUSER();
 */
-
+        db.SHOWALLUSER();
     }
 
 
