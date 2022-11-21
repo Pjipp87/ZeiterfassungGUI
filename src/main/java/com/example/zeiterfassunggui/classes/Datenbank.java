@@ -1,6 +1,7 @@
 package com.example.zeiterfassunggui.classes;
 import java.sql.*;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Datenbank {
     private static Statement stmt = null;
@@ -103,6 +104,32 @@ public class Datenbank {
         return stunden+":"+minuten+":"+sekunden;
     }
 
+    public String getAnfangszeitFromDB(Worker w){
+        Time t = null;
+       // "endzeit.id_ende=(select max(endzeit.id_ende) from endzeit)"
+        try {
+            stmt = connection.createStatement();
+            StringBuilder sb =new StringBuilder();
+            sb.append("SELECT kommen FROM anfangszeit WHERE id_user = ");
+            sb.append(w.getDbid());
+            sb.append(" AND anfangszeit.id_anfang = (SELECT MAX(anfangszeit.id_anfang) FROM anfangszeit);");
+            ResultSet rs = stmt.executeQuery(String.valueOf(sb));
+
+                t = rs.getTime(1);
+
+        }catch (SQLException e){
+            System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
+        }
+
+
+
+        String stunden = (t.getHours()+1) <10 ? "0"+(t.getHours()+1) : String.valueOf(t.getHours()+1);
+        String minuten = t.getMinutes() <10 ? "0"+t.getMinutes() : String.valueOf(t.getMinutes());
+        String sekunden = t.getSeconds() <10 ? "0"+t.getSeconds() : String.valueOf(t.getSeconds());
+        return "Arbeitsbeginn "+stunden+":"+minuten+":"+sekunden;
+
+        //return "Arbeitsbgeinn "+t.toString();
+    }
 
     public String getMonthHouer(Worker w){
         long time = 0;
@@ -178,6 +205,21 @@ public class Datenbank {
         }
     }
 
+    public void setActive(Worker w, int i){
+        try{
+            stmt = connection.createStatement();
+            StringBuilder sb = new StringBuilder();
+            sb.append("UPDATE User SET arbeitet = ");
+            sb.append(i);
+            sb.append(" WHERE ID=");
+            sb.append(w.getDbid());
+            sb.append(";");
+            stmt.execute(String.valueOf(sb));
+        }catch (SQLException e){
+            System.err.println("Fehler in setAtctive(): "+ e.getLocalizedMessage());
+        }
+    }
+
     public Worker getUser(int persNum) throws SQLException {
         Worker user = null;
       try {
@@ -226,6 +268,7 @@ public class Datenbank {
         String minuten = t.getMinute() <10 ? "0"+t.getMinute() : String.valueOf(t.getMinute());
         String sekunden = t.getSecond() <10 ? "0"+t.getSecond() : String.valueOf(t.getSecond());
         return "Arbeitsbgeinn: "+stunden+":"+minuten+":"+sekunden;
+
     }
 
     public String stopDay(Worker w){

@@ -9,7 +9,6 @@ import java.util.Date;
 public class Worker {
     private final String firstName;
     private String lastName;
-    private final int id;
     private int dbid;
     private long workHour;
     private String Anfangszeit;
@@ -21,21 +20,31 @@ public class Worker {
 
     public static ArrayList<Integer> workerListFromDB = new ArrayList<>();
 
+    private int arbeitet;
+
 
 
     public Worker(String firstName, String lastName, int id){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = id;
+        this.arbeitet = id;
         this.workHour = 0;
         workerList.add(this);
 
     }
 
+    public int getArbeitet() {
+        return arbeitet;
+    }
+
+    public void setArbeitet(int arbeitet) {
+        this.arbeitet = arbeitet;
+    }
+
     public Worker(String firstName, String lastName, int id, int dbid){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = id;
+        this.arbeitet = id;
         this.workHour = 0;
         this.dbid = dbid;
         workerList.add(this);
@@ -77,9 +86,7 @@ public class Worker {
         return time.getHours()-1+":"+time.getMinutes()+":"+time.getSeconds();
     }
 
-    public int getId() {
-        return id;
-    }
+
 
     public String getFirstName() {
         return firstName;

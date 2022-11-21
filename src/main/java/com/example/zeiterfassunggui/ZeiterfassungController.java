@@ -122,12 +122,14 @@ public class ZeiterfassungController {
             if (db.getUser(tempPersNum) != null){
                 activeWorker = db.getUser(tempPersNum);
                     welcomeLabel.setText("Hallo "+activeWorker.getFirstName()+" "+activeWorker.getLastName());
-                    if (Worker.acticeWorker.contains(activeWorker)){
+                    if (activeWorker.getArbeitet() == 1){
                         loginButton.setDisable(true);
                         logoutButton.setDisable(false);
                         endeButton.setDisable(false);
                         hoursMonth.setText(db.getMonthHouer(activeWorker));
-                        anfangsZeit.setText(activeWorker.getAnfangszeit());
+                        anfangsZeit.setText(db.getAnfangszeitFromDB(activeWorker));
+                        //anfangsZeit.setText(activeWorker.getAnfangszeit());
+                        //anfangsZeit.setText("Test");
                         persNum.setDisable(true);
                         registerButton.setDisable(true);
                     } else {
@@ -140,6 +142,7 @@ public class ZeiterfassungController {
                     }
             };
         } catch (Exception e){
+            System.err.println(e);
             welcomeLabel.setText("Keine Gültige Zahl!");
         }finally {
 
@@ -153,6 +156,8 @@ public class ZeiterfassungController {
         anfangsZeit.setText(db.startDay(activeWorker));
         endeButton.setDisable(false);
         anfangButton.setDisable(true);
+        db.setActive(activeWorker,1);
+        activeWorker.setArbeitet(1);
         endZeit.setText("");
     }
 
@@ -161,6 +166,8 @@ public class ZeiterfassungController {
         endZeit.setText(db.stopDay(activeWorker));
         gesamtZeit.setText(db.getTimeDifference(activeWorker));
         hoursMonth.setText(db.getMonthHouer(activeWorker));
+        db.setActive(activeWorker,0);
+        activeWorker.setArbeitet(0);
         endeButton.setDisable(true);
         anfangButton.setDisable(false);
     }
