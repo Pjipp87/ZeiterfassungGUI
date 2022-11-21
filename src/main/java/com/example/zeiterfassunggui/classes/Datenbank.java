@@ -1,6 +1,5 @@
 package com.example.zeiterfassunggui.classes;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Datenbank {
@@ -144,7 +143,7 @@ public class Datenbank {
         }
     }
 
-    public void SHOWALLUSER(){
+    public void getAllUserFromDB(){
         try{
             stmt = connection.createStatement();
             String st = "SELECT * FROM User";

@@ -5,31 +5,20 @@ import com.example.zeiterfassunggui.classes.Worker;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class ZeiterfassungController {
@@ -67,13 +56,7 @@ public class ZeiterfassungController {
 
 
 
-    public void delay() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> {
-            uhr.setText(String.valueOf(LocalTime.now().getHour())+":"+String.valueOf(LocalTime.now().getMinute())+":"+String.valueOf(LocalTime.now().getSecond()));
-        }));
-        timeline.play();
 
-    }
 
     @FXML
     public void initialize() throws SQLException, InterruptedException {
@@ -103,7 +86,7 @@ public class ZeiterfassungController {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
 
-
+        db.getAllUserFromDB();
 
 
 
@@ -113,7 +96,7 @@ public class ZeiterfassungController {
         db.SETNEWUSER(4712, "John", "Doe", 0);
         db.SETNEWUSER(4713, "Martina", "Musterfrau", 0);
         System.out.println("Users:");
-        db.SHOWALLUSER();
+
 */
 
     }

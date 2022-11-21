@@ -53,7 +53,7 @@ public class RegistrierungControler {
 
     @FXML
     protected void saveNewUser() throws SQLException, IOException {
-        if (!Objects.equals(number.getText(), "") && firstname.getText()!= "" && lastname.getText() != ""){
+        if (!Objects.equals(number.getText(), "") && !Objects.equals(firstname.getText(), "") && !Objects.equals(lastname.getText(), "")){
             if (!Worker.workerListFromDB.contains(Integer.valueOf(number.getText()))){
                 db.SETNEWUSER(Integer.parseInt(number.getText()), firstname.getText(), lastname.getText(), 0);
                 goBack();
