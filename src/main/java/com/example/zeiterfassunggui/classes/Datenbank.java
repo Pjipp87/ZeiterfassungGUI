@@ -3,18 +3,15 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class Datenbank {
-    String url = "jdbc:mysql://localhost:3306/Zeiterfassung";
-    String user = "root";
-    String pass = "";
-    //private static Connection con = null;
     private static Statement stmt = null;
     private static Connection connection;
 
 
 
-    private static final String DB_PATH = System.getProperty("user.home") + "/" + "testdb.db";
+    private static final String DB_PATH = "Database/Zeiterfassung.db";
+//    private static final String DB_PATH = System.getProperty("user.home") + "/" + "testdb.db";
 
-    public Datenbank() throws SQLException {
+    public Datenbank() {
         try {
             if (connection != null)
                 return;
@@ -50,7 +47,6 @@ public class Datenbank {
             sql = "CREATE TABLE IF NOT EXISTS endzeit (\n"+
                     " id_ende integer PRIMARY KEY AUTOINCREMENT,\n"+
                     " id_user integer NOT NULL, \n"+
-                   // " zeit DATETIME DEFAULT CURRENT_TIMESTAMP,\n"+
                     " gehen TIME DEFAULT CURRENT_TIMESTAMP,\n"+
                     " datum DATE DEFAULT CURRENT_TIMESTAMP, \n"+
                     " FOREIGN KEY(id_user) REFERENCES user(id_user) \n"+
@@ -67,7 +63,7 @@ public class Datenbank {
 
             stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println("Fehler SQLite: "+ e.getLocalizedMessage());
+            System.err.println("Fehler im Datenbank-Konstruktor: "+ e.getLocalizedMessage());
         }
     }
 
