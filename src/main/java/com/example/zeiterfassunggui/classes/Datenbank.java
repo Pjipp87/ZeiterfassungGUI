@@ -188,7 +188,11 @@ public class Datenbank {
             sb.append(persNum);
             ResultSet rs = stmt.executeQuery(String.valueOf(sb));
             while(rs.next()){
+
                     user = new Worker(rs.getString(2),rs.getString(3), rs.getInt(4),rs.getInt(1));
+//                if (rs.getInt(4) == 1){
+//                    Worker.acticeWorker.add(user);
+//                }
             }
         } catch (Exception e){
             System.err.println("Fehler in getUser()"+e.getLocalizedMessage());

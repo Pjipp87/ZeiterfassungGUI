@@ -15,6 +15,10 @@ import java.util.Objects;
 import javax.swing.*;
 
 
+/*
+* ActiveWorker Status in der Datenbank setzen und werte auf ActiveWorkerListe übernnehmen
+* */
+
 public class ZeiterfassungApplication extends Application {
 
 
