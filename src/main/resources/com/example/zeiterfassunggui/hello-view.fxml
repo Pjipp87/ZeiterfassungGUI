@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zeiterfassunggui.ZeiterfassungController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zeiterfassunggui.ZeiterfassungController">
    <children>
       <Button fx:id="loginButton" layoutX="314.0" layoutY="77.0" mnemonicParsing="false" onAction="#onClickLogin" text="Anmelden" />
       <Label layoutX="14.0" layoutY="82.0" text="Personalnummer:" />
@@ -17,6 +17,8 @@
       <Label layoutX="34.0" layoutY="286.0" text="Heutige Stunden:" />
       <Label fx:id="gesamtZeit" layoutX="155.0" layoutY="286.0" prefHeight="17.0" prefWidth="159.0" />
       <Label fx:id="welcomeLabel" layoutX="34.0" layoutY="130.0" prefHeight="17.0" prefWidth="356.0" />
-      <Button fx:id="logoutButton" layoutX="35.0" layoutY="327.0" mnemonicParsing="false" onAction="#logout" text="Abmelden" />
+      <Button fx:id="logoutButton" layoutX="34.0" layoutY="349.0" mnemonicParsing="false" onAction="#logout" text="Abmelden" />
+      <Label layoutX="34.0" layoutY="312.0" text="Studen in diesem Monat:" />
+      <Label fx:id="hoursMonth" layoutX="190.0" layoutY="312.0" prefHeight="17.0" prefWidth="284.0" />
    </children>
 </Pane>

@@ -56,6 +56,16 @@ public class Datenbank {
                     " FOREIGN KEY(id_user) REFERENCES user(id_user) \n"+
                     " );";
             stmt.execute(sql);
+
+            sql = "CREATE TABLE IF NOT EXISTS gesamtzeit (\n" +
+                    "id_gesamtzeiten INTEGER NOT NULL,\n" +
+                    "id_user INTEGER NOT NULL,\n" +
+                    "zeit INTEGER NOT NULL,\n" +
+                    " datum DATE CURRENT_DATE,\n" +
+                    " PRIMARY KEY(id_gesamtzeiten AUTOINCREMENT)\n" +
+                    ");";
+
+            stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println("Fehler SQLite: "+ e.getLocalizedMessage());
         }
@@ -76,10 +86,40 @@ public class Datenbank {
                 System.out.println(rs.getLong(1));
                 time = rs.getLong(1);
             }
+
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("INSERT INTO gesamtzeit(id_user, zeit ) Values(");
+            sb2.append(w.getDbid());
+            sb2.append(", ");
+            sb2.append(time);
+            sb2.append(");");
+
+            stmt.execute(String.valueOf(sb2));
+
         }catch (SQLException e){
             System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
         }
 
+        Time t = new Time(time);
+        return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
+    }
+
+
+    public String getMonthHouer(Worker w){
+        long time = 0;
+        try {
+            stmt = connection.createStatement();
+            StringBuilder sb =new StringBuilder();
+            sb.append("SELECT id_user, sum(zeit) AS ZEIT, strftime('%m', datum) AS MONAT FROM gesamtzeit WHERE id_user = ");
+            sb.append(w.getDbid());
+            sb.append(" AND strftime('%m', datum)=strftime('%m', current_date)");
+            ResultSet rs = stmt.executeQuery(String.valueOf(sb));
+            while (rs.next()){
+                time += rs.getLong(2);
+            }
+        }catch (SQLException e){
+            System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
+        }
         Time t = new Time(time);
         return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
 

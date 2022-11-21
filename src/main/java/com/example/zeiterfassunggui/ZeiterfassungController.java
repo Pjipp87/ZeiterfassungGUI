@@ -39,6 +39,9 @@ public class ZeiterfassungController {
     @FXML
     private Button loginButton;
 
+    @FXML
+    private Label hoursMonth;
+
 
 
     public ZeiterfassungController() throws SQLException {
@@ -63,7 +66,7 @@ public class ZeiterfassungController {
                 }
             }
         });
-  /*
+ /*
         db.DELETEALLYOUSERFROMTABLER("User");
         db.SETNEWUSER(4711, "Max", "Mustermann", 0);
         db.SETNEWUSER(4712, "John", "Doe", 0);
@@ -88,10 +91,12 @@ public class ZeiterfassungController {
                         loginButton.setDisable(true);
                         logoutButton.setDisable(false);
                         endeButton.setDisable(false);
+                        hoursMonth.setText(db.getMonthHouer(activeWorker));
                         anfangsZeit.setText(activeWorker.getAnfangszeit());
                     } else {
                         logoutButton.setDisable(false);
                         loginButton.setDisable(true);
+                        hoursMonth.setText(db.getMonthHouer(activeWorker));
                         anfangButton.setDisable(false);
                     }
             };
@@ -113,16 +118,16 @@ public class ZeiterfassungController {
 
     @FXML
     protected void endDay(){
-        ;
-        //Database integration
         endZeit.setText(db.stopDay(activeWorker));
         gesamtZeit.setText(db.getTimeDifference(activeWorker));
+        hoursMonth.setText(db.getMonthHouer(activeWorker));
         endeButton.setDisable(true);
         anfangButton.setDisable(false);
     }
 
     @FXML
     protected void logout(){
+        hoursMonth.setText("");
         activeWorker = null;
         welcomeLabel.setText("");
         anfangsZeit.setText("");
@@ -134,10 +139,6 @@ public class ZeiterfassungController {
         endeButton.setDisable(true);
     }
 
-//    @FXML
-//    protected void onHelloButtonClick() {
-//        welcomeText.setText("Welcome to JavaFX Application!");
-//    }
 
 
 }
