@@ -1,6 +1,7 @@
 package com.example.zeiterfassunggui.classes;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Datenbank {
     private static Statement stmt = null;
@@ -97,7 +98,11 @@ public class Datenbank {
         }
 
         Time t = new Time(time);
-        return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
+        t = Time.valueOf(t.toLocalTime());
+        String stunden = (t.getHours()-1) <10 ? "0"+(t.getHours()-1) : String.valueOf(t.getHours()-1);
+        String minuten = t.getMinutes() <10 ? "0"+t.getMinutes() : String.valueOf(t.getMinutes());
+        String sekunden = t.getSeconds() <10 ? "0"+t.getSeconds() : String.valueOf(t.getSeconds());
+        return stunden+":"+minuten+":"+sekunden;
     }
 
 
@@ -116,9 +121,15 @@ public class Datenbank {
         }catch (SQLException e){
             System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
         }
+
         Time t = new Time(time);
-        System.out.println(t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds());
-        return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
+
+
+        t = Time.valueOf(t.toLocalTime());
+        String stunden = (t.getHours()-1) <10 ? "0"+(t.getHours()-1) : String.valueOf(t.getHours()-1);
+        String minuten = t.getMinutes() <10 ? "0"+t.getMinutes() : String.valueOf(t.getMinutes());
+        String sekunden = t.getSeconds() <10 ? "0"+t.getSeconds() : String.valueOf(t.getSeconds());
+        return stunden+":"+minuten+":"+sekunden;
 
     }
 
