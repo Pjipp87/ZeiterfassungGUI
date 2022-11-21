@@ -16,11 +16,10 @@ public class Datenbank {
         try {
             if (connection != null)
                 return;
-            System.out.println("Creating Connection to Database...");
+            System.out.println("Verbinde zu Datenbank...");
             connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
             if (!connection.isClosed())
-                System.out.println("...Connection established");
-            System.out.println(DB_PATH);
+                System.out.println("...Verbindung aufgebaut");
             stmt = connection.createStatement();
 
 /*
