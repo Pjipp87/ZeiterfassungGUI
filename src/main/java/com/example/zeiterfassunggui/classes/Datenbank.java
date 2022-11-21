@@ -221,7 +221,12 @@ public class Datenbank {
             System.err.println(e.getLocalizedMessage());
         }
 
-        return "Arbeitsbeginn: "+LocalDateTime.now().getHour() +":"+LocalDateTime.now().getMinute()+" Uhr";
+        LocalTime t = LocalTime.now();
+
+        String stunden = (t.getHour()) <10 ? "0"+(t.getHour()) : String.valueOf(t.getHour());
+        String minuten = t.getMinute() <10 ? "0"+t.getMinute() : String.valueOf(t.getMinute());
+        String sekunden = t.getSecond() <10 ? "0"+t.getSecond() : String.valueOf(t.getSecond());
+        return "Arbeitsbgeinn: "+stunden+":"+minuten+":"+sekunden;
     }
 
     public String stopDay(Worker w){
@@ -244,8 +249,11 @@ public class Datenbank {
             System.err.println(e.getLocalizedMessage());
 
         }
-
-        return "Arbeitsende: "+LocalDateTime.now().getHour() +":"+LocalDateTime.now().getMinute()+" Uhr";
+        LocalTime t = LocalTime.now();
+        String stunden = (t.getHour()) <10 ? "0"+(t.getHour()) : String.valueOf(t.getHour());
+        String minuten = t.getMinute() <10 ? "0"+t.getMinute() : String.valueOf(t.getMinute());
+        String sekunden = t.getSecond() <10 ? "0"+t.getSecond() : String.valueOf(t.getSecond());
+        return "Arbeitsende: "+stunden+":"+minuten+":"+sekunden;
     }
 
 
