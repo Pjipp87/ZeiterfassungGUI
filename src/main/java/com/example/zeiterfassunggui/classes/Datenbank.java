@@ -31,7 +31,7 @@ public class Datenbank {
             debugSql = "DROP TABLE endzeit";
             stmt.execute(debugSql);
 */
-
+            //stmt.execute("DROP TABLE gesamtzeit");
             String sql = "CREATE TABLE IF NOT EXISTS User (\n" +
                     "  ID integer NOT NULL,\n" +
                     "  Vorname text NOT NULL,\n" +
@@ -61,7 +61,7 @@ public class Datenbank {
                     "id_gesamtzeiten INTEGER NOT NULL,\n" +
                     "id_user INTEGER NOT NULL,\n" +
                     "zeit INTEGER NOT NULL,\n" +
-                    " datum DATE CURRENT_DATE,\n" +
+                    " datum DATE DEFAULT CURRENT_DATE,\n" +
                     " PRIMARY KEY(id_gesamtzeiten AUTOINCREMENT)\n" +
                     ");";
 
@@ -121,6 +121,7 @@ public class Datenbank {
             System.err.println("Zeitdifferenz :"+e.getLocalizedMessage());
         }
         Time t = new Time(time);
+        System.out.println(t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds());
         return t.getHours()-1+":"+t.getMinutes()+":"+t.getSeconds();
 
     }
@@ -141,16 +142,19 @@ public class Datenbank {
         try{
             stmt = connection.createStatement();
             String st = "SELECT * FROM User";
-
-
             ResultSet rs = stmt.executeQuery(st);
-
             while (rs.next()){
-                System.out.println(rs.getString(1)+" - "+ rs.getString(2)+" - "+rs.getString(3)+" - "+rs.getString(4));
+                Worker.workerListFromDB.add(rs.getInt(1));
+ //               System.out.println(rs.getString(1)+" - "+ rs.getString(2)+" - "+rs.getString(3)+" - "+rs.getString(4));
             }
 
         } catch (SQLException e){
             System.err.println("Fehler Showalleuser: "+e.getLocalizedMessage());
+        }
+
+        for (Integer i: Worker.workerListFromDB
+             ) {
+            System.out.println("Nummer: "+ i);
         }
     }
     public void SETNEWUSER(int num, String vorname, String nachname, int arbeitet) throws SQLException {
@@ -178,10 +182,10 @@ public class Datenbank {
             sb.append(persNum);
             ResultSet rs = stmt.executeQuery(String.valueOf(sb));
             while(rs.next()){
-                user = new Worker(rs.getString(2),rs.getString(3), rs.getInt(4),rs.getInt(1));
+                    user = new Worker(rs.getString(2),rs.getString(3), rs.getInt(4),rs.getInt(1));
             }
         } catch (Exception e){
-            System.out.println("Fehler in getUser()");
+            System.err.println("Fehler in getUser()"+e.getLocalizedMessage());
         }
         return user;
     }
@@ -235,27 +239,6 @@ public class Datenbank {
     }
 
 
-    public String getTime(Worker w){
-        String starttime;
-/*        try {
-            stm = con.createStatement();
-            StringBuilder sb = new StringBuilder();
-            sb.append("Select * From User WHERE ID=");
 
-          "SELECT `User`.`ID`, `Anfangszeit`.`zeit`, `Endzeit`.`zeit` FROM `User` , `Anfangszeit` , `Endzeit` WHERE User.Nummer = 4711  ORDER BY Endzeit.id_ende, Anfangszeit.id_anfang DESC Limit 1"
-
-
-            sb.append(persNum);
-            ResultSet rs = stm.executeQuery(String.valueOf(sb));
-            while(rs.next()){
-                user = new Worker(rs.getString(2),rs.getString(3), rs.getInt(4),rs.getInt(1));
-/           }
-        } catch (Exception e){
-            System.out.println("Fehler in getUser()");
-        }*/
-
-
-        return "Test";
-    }
 
 }

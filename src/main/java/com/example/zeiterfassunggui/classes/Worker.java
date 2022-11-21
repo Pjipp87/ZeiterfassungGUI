@@ -19,6 +19,8 @@ public class Worker {
     private long endDay;
     public static ArrayList<Worker> acticeWorker = new ArrayList<>();
 
+    public static ArrayList<Integer> workerListFromDB = new ArrayList<>();
+
 
 
     public Worker(String firstName, String lastName, int id){
