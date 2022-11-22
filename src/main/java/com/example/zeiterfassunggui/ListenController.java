@@ -77,7 +77,7 @@ public class ListenController {
     @FXML
     protected void onClickBack() throws IOException {
         Stage stage = (Stage) title.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(ZeiterfassungApplication.class.getResource("register-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ZeiterfassungApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Register");
         stage.setScene(scene);

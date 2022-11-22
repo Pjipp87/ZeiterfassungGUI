@@ -117,7 +117,7 @@ public class ZeiterfassungController {
         Stage stage = (Stage) welcomeLabel.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(ZeiterfassungApplication.class.getResource("list-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Register");
+        stage.setTitle("Übersicht");
         stage.setScene(scene);
         stage.show();
 
