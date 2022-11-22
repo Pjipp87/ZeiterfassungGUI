@@ -176,6 +176,7 @@ public class Datenbank {
             String st = "SELECT * FROM User";
             ResultSet rs = stmt.executeQuery(st);
             while (rs.next()){
+                Worker.getWorkerListFromDB.add(new Worker(rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(1)));
                 Worker.workerListFromDB.add(rs.getInt(1));
  //               System.out.println(rs.getString(1)+" - "+ rs.getString(2)+" - "+rs.getString(3)+" - "+rs.getString(4));
             }

@@ -112,6 +112,17 @@ public class ZeiterfassungController {
 
     }
 
+    @FXML
+    protected void onClickOverview() throws IOException {
+        Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(ZeiterfassungApplication.class.getResource("list-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("Register");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 
     @FXML
     protected void onClickLogin() throws SQLException {

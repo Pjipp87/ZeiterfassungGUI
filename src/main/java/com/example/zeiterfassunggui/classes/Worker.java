@@ -19,6 +19,7 @@ public class Worker {
     public static ArrayList<Worker> acticeWorker = new ArrayList<>();
 
     public static ArrayList<Integer> workerListFromDB = new ArrayList<>();
+    public static ArrayList<Worker> getWorkerListFromDB = new ArrayList<>();
 
     private int arbeitet;
 
