@@ -185,10 +185,7 @@ public class Datenbank {
             System.err.println("Fehler Showalleuser: "+e.getLocalizedMessage());
         }
 
-        for (Integer i: Worker.workerListFromDB
-             ) {
-            System.out.println("Nummer: "+ i);
-        }
+
     }
     public void SETNEWUSER(int num, String vorname, String nachname, int arbeitet) throws SQLException {
         try {
